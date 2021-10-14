@@ -1,13 +1,14 @@
 const { Client } = require('eris');
 const EventManager = require('../managers/event');
-const CommandManager = require('../managers/command');
 const Logger = require("./Logger");
 
 module.exports = class Bot extends Client {
-  constructor(token, options) {
+  constructor(token, options = {}) {
     super(token, options);
     this.commands = {};
     this.managers = {};
+    this.allowSlashCommands = Boolean(options.slashCommands) || false;
+    this.allowNormalCommands = Boolean(options.normalCommands) || false;
     this.config = require("../../config");
     this.logger = new Logger();
   }
@@ -16,8 +17,17 @@ module.exports = class Bot extends Client {
     try {
       this.logger.info(`Carregando eventos...`)
       this.managers.event = new EventManager(this);
-      this.managers.command = new CommandManager(this);
+      if(this.allowSlashCommands) {
+        const SlashCommandManager = require('../managers/slash-command');
+        this.managers.slashCommand = new SlashCommandManager(this);
+      }
+      if(this.allowNormalCommands) {
+        const NormalCommandManager = require('../managers/normal-command');
+        this.managers.normalCommand = new NormalCommandManager(this);
+        await this.managers.normalCommand.execute();
+      }
       await this.managers.event.execute();
+      
     } catch(_) {
       console.log(_);
     }

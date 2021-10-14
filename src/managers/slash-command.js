@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 const Format = require("../structures/Format");
 
-module.exports = class CommandManager {
+module.exports = class SlashCommandManager {
   constructor(client) {
     this.client = client;
   }
@@ -40,6 +40,7 @@ module.exports = class CommandManager {
   async execute() {
     try {
       const { client } = this;
+      client.logger.info(`Registrando slash commands...`);
       const URL = this.url = `/applications/${this.client.user.id}/guilds/798973102552907806/commands`;
       let cmds = await client.requestHandler.request("GET", URL, true);
       let new_cmds = [];
@@ -80,7 +81,7 @@ module.exports = class CommandManager {
         }
       }
       
-      client.logger.success(`${new_cmds.length} novos comandos registrados!`);
+      client.logger.success(`${new_cmds.length} novos slash commands registrados!`);
     } catch(_) {
       console.log(_);
     }

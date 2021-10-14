@@ -5,7 +5,8 @@ const client = new Client(process.env.TOKEN, {
   restMode: true,
   rest: {
     baseURL: "/api/v9"
-  }
+  },
+  slashCommands: true
 });
 
 (async () => {
