@@ -15,7 +15,7 @@ module.exports = class Bot extends Client {
   
   async loadManagers() {
     try {
-      this.logger.info(`Carregando eventos...`)
+      this.logger.info(`Carregando eventos...`, "EventManager")
       this.managers.event = new EventManager(this);
       if(this.allowSlashCommands) {
         const SlashCommandManager = require('../managers/slash-command');
@@ -35,7 +35,7 @@ module.exports = class Bot extends Client {
   
   async start() {
     try {
-      this.logger.info(`Iniciando...`);
+      this.logger.info(`Iniciando managers...`, "Client");
       await this.loadManagers();
       await this.connect();
     } catch(_) {

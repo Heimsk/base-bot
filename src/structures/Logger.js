@@ -1,29 +1,29 @@
 const chalk = require("chalk");
 
 module.exports = class Logger {
-  error(msg) {
+  error(msg, label = "") {
     if(!msg) {
       throw Error(`Mensagem não espicificada`);
     }
-    console.log(chalk.red("error") + " " + String(msg));
+    console.log(`${label ? `[ ${String(label)} ] ` : ""}${chalk.red("error")} ${String(msg)}`);
   }
   
-  success(msg) {
+  success(msg, label = "") {
     if(!msg) {
       throw Error(`Mensagem não espicificada`);
     }
-    console.log(chalk.green("success") + " " + String(msg));
+    console.log(`${label ? `[ ${String(label)} ] ` : ""}${chalk.green("success")} ${String(msg)}`);
   }
-  info(msg) {
+  info(msg, label = "") {
     if(!msg) {
       throw Error(`Mensagem não espicificada`);
     }
-    console.log(chalk.blue("info") + " " + String(msg));
+    console.log(`${label ? `[ ${String(label)} ] ` : ""}${chalk.blue("info")} ${String(msg)}`);
   }
-  warn(msg) {
+  warn(msg, label = "") {
     if(!msg) {
       throw Error(`Mensagem não espicificada`);
     }
-    console.log(chalk.yellow("warn") + " " + String(msg));
+    console.log(`${label ? `[ ${String(label)} ] ` : ""}${chalk.yellow("warn")} ${String(msg)}`);
   }
 }

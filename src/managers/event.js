@@ -15,7 +15,7 @@ module.exports = class EventManager {
           client.on(event.name, await event.exec.bind(null, client));
         }
       }
-      client.logger.success(`Eventos carregados!`);
+      client.logger.success(`Eventos carregados!`, "EventManager");
     } catch(_) {
       console.log(_);
     }

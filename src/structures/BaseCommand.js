@@ -17,7 +17,15 @@ module.exports = class BaseCommand {
     try {
       await ctx.send(`${this.client.config.emojis.success || ""} » ${msg}`);
     } catch(_) {
-      await ctx.send(`${this.client.config.emojis.success || ""} » ${msg}`);
+      await ctx.edit(`${this.client.config.emojis.success || ""} » ${msg}`);
+    }
+  }
+  
+  async handleCustomError(ctx, msg, emoji) {
+    try {
+      await ctx.send(`${emoji ? emoji : this.client.config.emojis.error || ""} » ${msg}`);
+    } catch(_) {
+      await ctx.send(`${emoji ? emoji : this.client.config.emojis.error || ""} » ${msg}`);
     }
   }
 }

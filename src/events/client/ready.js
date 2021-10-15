@@ -6,7 +6,7 @@ module.exports = class Event extends BaseEvent {
   }
   
   async exec(client) {
-    client.logger.success(`${client.user.username} ficou online!`);
+    client.logger.success(`${client.user.username} ficou online!`, "Client");
     if(client.managers.slashCommand != undefined) {
       await client.managers.slashCommand.execute();
     }

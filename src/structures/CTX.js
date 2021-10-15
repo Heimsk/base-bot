@@ -43,21 +43,25 @@ module.exports = class CTX {
     try {
       await this.#client.requestHandler.request("POST", `/interactions/${this.#int.id}/${this.#int.token}/callback`, true, format);
       if(Math.floor(((Date.now() - this.#d) % 60000) / 1000) > 2) {
-        this.#client.logger.warn(`${this.#client.user.username} demorou ${Math.floor(((Date.now() - this.#d) % 60000) / 1000)} segundos para responder o comando ${this.#cmd.help.name}, possível lag. ${this.guild.shard.latency}ms`);
+        this.#client.logger.warn(`${this.#client.user.username} demorou ${Math.floor(((Date.now() - this.#d) % 60000) / 1000)} segundos para responder o comando ${this.#cmd.help.name}, possível lag. ${this.guild.shard.latency}ms`, "SlashCommandManager");
       }
     } catch(_) {
-      await this.#client.logger.error(`Erro ao responder interação(slash-command): ${_}`);
+      await this.#client.logger.error(`Erro ao responder interação(slash-command): ${_}`, "SlashCommandManager");
       throw Error(_);
     }
   }
   
   async edit(data) {
-    let format = data;
-    if(typeof data != "object") {
-      format = {
-        content: data
-      };
+    try {
+      let format = data;
+      if(typeof data != "object") {
+        format = {
+          content: data
+        };
+      }
+      return await this.#client.requestHandler.request("PATCH", `/webhooks/${this.#client.user.id}/${this.#int.token}/messages/@original`, true, format);
+    } catch(_) {
+      throw Error(_);
     }
-    return await this.#client.requestHandler.request("PATCH", `/webhooks/${this.#client.user.id}/${this.#int.token}/messages/@original`, true, format);
   }
 }

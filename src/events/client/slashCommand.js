@@ -54,7 +54,7 @@ module.exports = class SlashCmdEvent {
             console.log();
             ctx.edit(`Houve um erro inesperado, tente novamente mais tarde.`).catch(() => {});
           }
-          client.logger.error(`Erro detectado no comando ${cmd.help.name}: ${_}`);
+          client.logger.error(`Erro detectado no comando ${cmd.help.name}: ${_}`, "SlashCommandManager");
         }
       }
     }
