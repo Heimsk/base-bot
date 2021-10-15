@@ -46,7 +46,6 @@ module.exports = class CTX {
         this.#client.logger.warn(`${this.#client.user.username} demorou ${Math.floor(((Date.now() - this.#d) % 60000) / 1000)} segundos para responder o comando ${this.#cmd.help.name}, possível lag. ${this.guild.shard.latency}ms`, "SlashCommandManager");
       }
     } catch(_) {
-      await this.#client.logger.error(`Erro ao responder interação(slash-command): ${_}`, "SlashCommandManager");
       throw Error(_);
     }
   }

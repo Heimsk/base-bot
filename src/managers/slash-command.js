@@ -45,9 +45,9 @@ module.exports = class SlashCommandManager {
       let cmds = await client.requestHandler.request("GET", URL, true);
       let new_cmds = [];
       
-      for(let dir of await fs.readdir("./src/commands")) {
-        for(let file of await fs.readdir(`./src/commands/${dir}`)) {
-          const Command = require(`../commands/${dir}/${file}`);
+      for(let dir of await fs.readdir("./src/commands/Slash")) {
+        for(let file of await fs.readdir(`./src/commands/Slash/${dir}`)) {
+          const Command = require(`../commands/Slash/${dir}/${file}`);
           const cmd = new Command(client);
           if(cmd.help) {
             if(cmd.help.name) {
