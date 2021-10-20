@@ -31,11 +31,11 @@ module.exports = class BaseCommand {
     }
   }
   
-  async handleCustomError(ctx, msg, emoji, mode = 1) {
+  async handleCustomError(ctx, msg, mode = 1, options = {}) {
     try {
-      let format = `${emoji ? emoji : this.client.config.emojis.error || ""} » ${msg}`;
+      let format = `${options.emoji ? options.emoji : this.client.config.emojis.error || ""} » ${msg}`;
       if(mode == 1) {
-        await ctx.send(format);
+        await ctx.send(format, options.ephemeral ? true : false);
       } else {
         await ctx.edit(format);
       }

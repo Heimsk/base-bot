@@ -53,14 +53,13 @@ module.exports = class SlashCommandManager {
             if(cmd.help.name) {
               let format = new Format(cmd);
               let ar_cmd = cmds.find(c => c.name == format.name);
-              
               if(ar_cmd) {
                 delete ar_cmd.application_id;
                 delete ar_cmd.id;
                 delete ar_cmd.version;
                 delete ar_cmd.guild_id;
+                delete ar_cmd.default_member_permissions
               }
-              
               
               if(!this.compare(ar_cmd, format)) {
                 try {
